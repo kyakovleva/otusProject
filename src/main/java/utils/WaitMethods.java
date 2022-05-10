@@ -1,5 +1,6 @@
 package utils;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -22,4 +23,8 @@ public class WaitMethods {
     public void waitUntilAttrPresents(WebElement save, String attr, String value) {
         wait.until(ExpectedConditions.attributeToBe(save, attr, value));
     }
+    public void waitVisibilityOfElementLocated(WebElement locator) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated((By) locator));
+    }
+
 }

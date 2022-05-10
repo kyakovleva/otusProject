@@ -9,14 +9,14 @@ import org.openqa.selenium.support.PageFactory;
 import utils.JsOperations;
 import utils.WaitMethods;
 
-public abstract class AbstractMethods {
+public abstract class AbstractPage {
     protected final WebDriver driver;
     protected final WaitMethods wait;
     protected final JsOperations js;
     protected final ServerConfig serverConfig = ConfigFactory.create(ServerConfig.class);
-    protected final Logger logger = LogManager.getLogger(AbstractMethods.class);
+    protected final Logger logger = LogManager.getLogger(AbstractPage.class);
 
-    public AbstractMethods(WebDriver driver) {
+    public AbstractPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WaitMethods(driver, 5, 1);
         this.js = new JsOperations(driver);

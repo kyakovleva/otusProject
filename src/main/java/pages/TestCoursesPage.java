@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class TestCoursesPage extends AbstractMethods {
+public class TestCoursesPage extends AbstractPage {
     @FindBy(xpath = "//p[contains(text(),'Курсы')]")
     private WebElement coursesMenu;
 

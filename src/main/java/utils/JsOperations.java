@@ -16,4 +16,8 @@ public class JsOperations {
         js.executeScript("arguments[0].scrollIntoView(false)", element);
     }
 
+    public void clickOnElement(WebElement element) {
+        js.executeScript("arguments[0].click()", element);
+    }
+
 }

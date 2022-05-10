@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import pages.CoursePage;
+import pages.EventsPage;
 import pages.MainPage;
 import pages.TestCoursesPage;
 import utils.DriverManager;
@@ -27,12 +28,19 @@ public class MainTest {
         driver = DriverManager.initDriver(webDriverName, List.of(System.getProperty("browser.mode")));
     }
 
-//    @After
+    //    @After
     public void end() {
         DriverManager.end(driver);
     }
 
     @Test
+    public void testCourses() {
+        testCountCourses();
+        testChecksOpenedCourse();
+//        testUpcomingEvents();
+//        testSortDODEventsOpen();
+    }
+
     public void testCountCourses() {
         MainPage mainPage = new MainPage(driver);
         TestCoursesPage testCoursesPage = new TestCoursesPage(driver);
@@ -41,5 +49,25 @@ public class MainTest {
         testCoursesPage.open();
         testCoursesPage.countCourses();
         coursePage.open();
+    }
+
+    public void testChecksOpenedCourse() {
+        CoursePage coursePage = new CoursePage(driver);
+        coursePage.checkOpenedCoursesName();
+        coursePage.checkOpenedCoursesLength();
+        coursePage.checkOpenedCoursesDescr();
+    }
+
+    public void testUpcomingEvents() {
+        EventsPage eventsPage = new EventsPage(driver);
+        eventsPage.open();
+        eventsPage.checkBlocksUpcomingEvents();
+    }
+
+    public void testSortDODEventsOpen() {
+        EventsPage eventsPage = new EventsPage(driver);
+        eventsPage.open();
+        eventsPage.sortUpcomingEventsDOD();
+        eventsPage.sortUpcomingEventsDOD();
     }
 }

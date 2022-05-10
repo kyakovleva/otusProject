@@ -68,8 +68,6 @@
                     <systemProperties>
                         <base.url>https://otus.ru</base.url>
                         <driverName>CHROME</driverName>
-                        <base.email>toyeyi1115@sartess.com</base.email>
-                        <base.password>Qwerty123</base.password>
                         <browser.mode>start-maximized</browser.mode>
                     </systemProperties>
                 </configuration>
