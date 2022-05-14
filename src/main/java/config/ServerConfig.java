@@ -1,8 +1,6 @@
 package config;
 
-import enums.CoursesDescr;
-import enums.CoursesLength;
-import enums.CoursesNames;
+import enums.*;
 import org.aeonbits.owner.Config;
 
 @Config.Sources("classpath:config.properties")
@@ -12,11 +10,20 @@ public interface ServerConfig extends Config {
     String courses();
 
     @Key("testCourseName1")
-    CoursesNames testCourseName1();
+    TestCoursesNames testCourseName1();
 
     @Key("testCourseLength1")
     CoursesLength testCourseLength1();
 
     @Key("testCourseDescr1")
     CoursesDescr testCourseDescr1();
+
+    @Key("testEventsName2")
+    EventsNames testEventsName2();
+
+    @Key("testEventsName1")
+    MainHeader testEventsName1();
+
+    @Key("testEventsName3")
+    EventsNames testEventsName3();
 }

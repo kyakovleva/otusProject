@@ -1,13 +1,13 @@
 package enums;
 
-public enum CoursesNames {
+public enum TestCoursesNames {
     JAVAQABASIC("Java QA Engineer. Basic", CoursesLength.FOURMONTHS),
     QALEAD("QA Lead", CoursesLength.SIXMONTHS);
 
     private String translate;
     private CoursesLength coursesLength;
 
-    CoursesNames(String translate,CoursesLength coursesLength ) {
+    TestCoursesNames(String translate, CoursesLength coursesLength ) {
         this.translate = translate;
         this.coursesLength = coursesLength;
     }

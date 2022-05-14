@@ -1,22 +1,22 @@
 package enums;
 
 public enum CoursesDescr {
-    JAVAQADESCR("Автоматизация тестирования на Java с нуля",CoursesNames.JAVAQABASIC),
-    QALEADDESCR("Best Practice по Soft и Hard Skills для эффективного управления командами тестирования",CoursesNames.QALEAD);
+    JAVAQADESCR("Автоматизация тестирования на Java с нуля", TestCoursesNames.JAVAQABASIC),
+    QALEADDESCR("Best Practice по Soft и Hard Skills для эффективного управления командами тестирования", TestCoursesNames.QALEAD);
 
     private String description;
-    private CoursesNames coursesNames;
+    private TestCoursesNames testCoursesNames;
 
-    CoursesDescr(String description,CoursesNames coursesNames) {
+    CoursesDescr(String description, TestCoursesNames testCoursesNames) {
         this.description = description;
-        this.coursesNames = coursesNames;
+        this.testCoursesNames = testCoursesNames;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public CoursesNames getCoursesNames() {
-        return coursesNames;
+    public TestCoursesNames getCoursesNames() {
+        return testCoursesNames;
     }
 }

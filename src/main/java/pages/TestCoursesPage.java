@@ -19,8 +19,6 @@ public class TestCoursesPage extends AbstractPage {
     @FindBy(xpath = "//h1[contains(text(),'Тестирование')]")
     private WebElement testHeader;
 
-//    private final By coursesBlocks = By.xpath(".//div[@class='lessons']");
-
     public TestCoursesPage(WebDriver driver) {
         super(driver);
     }

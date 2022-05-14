@@ -1,5 +1,8 @@
 package pages;
 
+import enums.CoursesDescr;
+import enums.EventsNames;
+import enums.MainHeader;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -10,19 +13,15 @@ import org.openqa.selenium.support.FindBy;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-
-import static java.util.Calendar.*;
 
 public class EventsPage extends AbstractPage {
     @FindBy(xpath = "//p[contains(text(),'События')]")
     private WebElement eventsMenu;
 
-    @FindBy(xpath = "//a[contains(@class,'header2-menu__dropdown-link')][@title='Календарь мероприятий']")
-    private WebElement eventsCalendarButton;
+//    @FindBy(xpath = "//a[contains(@class,'header2-menu__dropdown-link')][@title='Календарь мероприятий']")
+//    private WebElement eventsCalendarButton;
 
     @FindBy(xpath = "//div[contains(@class,'dod_new-events__list')][contains(@class,'js-dod_new_events')]")
     private WebElement upcomingEventsBlocksElement;
@@ -46,10 +45,18 @@ public class EventsPage extends AbstractPage {
 
     public void open() {
         Actions actions = new Actions(driver);
-        actions.moveToElement(eventsMenu).build().perform();
-        eventsCalendarButton.click();
-        String currentHeader = eventsCalendarButton.getText();
-        Assert.assertEquals("Страница предстоящих мероприятий открыта некорректно", "Календарь мероприятий", currentHeader);
+        MainHeader configEventButton = serverConfig.testEventsName1();
+        EventsNames configEventName = serverConfig.testEventsName2();
+        String findEventsButton = String.format("//p[contains(text(),'%s')]", configEventButton.getTranslate());
+        String eventsCalendarButton = String.format("//a[contains(@class,'header2-menu__dropdown-link')][@title='%s']", configEventName.getTranslate());
+        WebElement eventsButtonElement = driver.findElement(By.xpath(findEventsButton));
+        WebElement eventsCalendarElement = driver.findElement(By.xpath(eventsCalendarButton));
+        actions.moveToElement(eventsButtonElement).build().perform();
+        eventsCalendarElement.click();
+        String pageHeader = String.format("//div[contains(text(),'%s')]", configEventName.getTranslate());
+        WebElement currentHeaderElement = driver.findElement(By.xpath(pageHeader));
+        String getCurrentHeaderElementText = currentHeaderElement.getText();
+        Assert.assertEquals("Страница предстоящих мероприятий открыта некорректно", configEventName.getTranslate(), getCurrentHeaderElementText);
         logger.info("Открыта страница предстоящих мероприятий");
     }
 
@@ -68,7 +75,7 @@ public class EventsPage extends AbstractPage {
         final By upcomingEventsBlocksElement = By.xpath("//div[contains(@class,'dod_new-events__list')][contains(@class,'js-dod_new_events')]");
         final By eventDateTimeContainer = By.xpath("//span[@class='dod_new-event__date-text']");
         Date dateNow = new Date();
-        DateFormat df = new SimpleDateFormat("dd MMMMMMMM HH:MM");
+        DateFormat df = new SimpleDateFormat("dd MMMMMMMM");
         String currentDate = df.format(dateNow);
         WebElement upcomingEventsBlocks = driver.findElement(upcomingEventsBlocksElement);
         List<WebElement> futureEventsDates = upcomingEventsBlocks.findElements(eventDateTimeContainer);
@@ -84,10 +91,16 @@ public class EventsPage extends AbstractPage {
     public void sortUpcomingEventsDOD() {
 //        Пользователь сортирует мероприятия по типу ДОД
         Actions actions = new Actions(driver);
-        actions.moveToElement(upcomingEventsSort).build().perform();
-        upcomingEventsSort.click();
-        actions.moveToElement(upcomingEventsSortDod).build().perform();
-        upcomingEventsSortDod.click();
+//        actions.moveToElement(upcomingEventsSort).build().perform();
+        EventsNames configEventTypeName = serverConfig.testEventsName3();
+        final By upcomingEventsSort = By.xpath("//span[@class='dod_new-events-dropdown__input-selected']");
+        String findEventType = String.format("//a[contains(text(),'%s')]", configEventTypeName.getTranslate());
+        WebElement currentCoursesBlock = driver.findElement(upcomingEventsSort);
+        js.moveToElement(currentCoursesBlock);
+        js.clickOnElement(currentCoursesBlock);
+        WebElement findEventTypeElement = driver.findElement(By.xpath(findEventType));
+        js.moveToElement(findEventTypeElement);
+        js.clickOnElement(findEventTypeElement);
         logger.info("Мероприятия отсортированы по типу ДОД");
     }
 

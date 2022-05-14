@@ -2,7 +2,7 @@ package pages;
 
 import enums.CoursesDescr;
 import enums.CoursesLength;
-import enums.CoursesNames;
+import enums.TestCoursesNames;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,7 +16,7 @@ public class CoursePage extends AbstractPage {
 
     public void open() {
         //'Java QA Engineer. Basic'
-        CoursesNames configCourseName = serverConfig.testCourseName1();
+        TestCoursesNames configCourseName = serverConfig.testCourseName1();
         String findCoursesBlock = String.format("//div[contains(text(),'%s')]", configCourseName.getTranslate());
 //        String openedCoursesPageHeader = String.format("//div[@class='course-header2__title'][contains(text(), '%s')]",serverConfig.testCourseName1());
 
@@ -31,7 +31,7 @@ public class CoursePage extends AbstractPage {
 
     public void checkOpenedCoursesName() {
         //В карточке указана информация о курсе: Название, Описание, Длительность обучения
-        CoursesNames configCourseName = serverConfig.testCourseName1();
+        TestCoursesNames configCourseName = serverConfig.testCourseName1();
         String openedCoursesPageHeader = String.format("//div[@class='course-header2__title'][contains(text(), '%s')]", configCourseName.getTranslate());
         String openedCurrentCoursesPageHeader = driver.findElement(By.xpath(openedCoursesPageHeader)).getText();
         Assert.assertEquals(configCourseName.getTranslate(), openedCurrentCoursesPageHeader);
