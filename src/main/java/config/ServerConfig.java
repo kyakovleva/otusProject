@@ -18,21 +18,19 @@ public interface ServerConfig extends Config {
     @Key("eventSortingTypeLong")
     EventsNames eventSortingTypeLong();
 
-    @Key("testCourseName1")
-    TestCoursesNames testCourseName1();
+    @Key("testCourseName")
+    TestCoursesNames testCourseName();
 
-    @Key("testCourseLength1")
-    CoursesLength testCourseLength1();
+    @Key("testCourseLength")
+    CoursesLength testCourseLength();
 
-    @Key("testCourseDescr1")
-    CoursesDescr testCourseDescr1();
+    @Key("testCourseDescr")
+    CoursesDescr testCourseDescr();
 
-    @Key("testEventsName2")
-    EventsNames testEventsName2();
+    @Key("testEventsName")
+    EventsNames testEventsName();
 
     @Key("eventsHeader")
     MainHeader eventsHeader();
 
-    @Key("testEventsName3")
-    EventsNames testEventsName3();
 }

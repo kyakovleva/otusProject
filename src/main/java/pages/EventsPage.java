@@ -30,7 +30,7 @@ public class EventsPage extends AbstractPage {
     public void open() {
         Actions actions = new Actions(driver);
         MainHeader configEventButton = serverConfig.eventsHeader();
-        EventsNames configEventName = serverConfig.testEventsName2();
+        EventsNames configEventName = serverConfig.testEventsName();
         String findEventsButton = String.format("//p[contains(text(),'%s')]", configEventButton.getTranslate());
         String eventsCalendarButton = String.format("//a[contains(@class,'header2-menu__dropdown-link')][@title='%s']", configEventName.getTranslate());
         WebElement eventsButtonElement = driver.findElement(By.xpath(findEventsButton));
@@ -46,8 +46,8 @@ public class EventsPage extends AbstractPage {
 
     public void checkBlocksUpcomingEvents() {
 //На странице отображаются карточки предстоящих мероприятий.
-        By upcomingEventsBlocksPath = By.xpath("//div[contains(@class,'dod_new-events__list')][contains(@class,'js-dod_new_events')]");
-        By eventContainerPath = By.xpath(".//a[@class='dod_new-event']");
+        final By upcomingEventsBlocksPath = By.xpath("//div[contains(@class,'dod_new-events__list')][contains(@class,'js-dod_new_events')]");
+        final By eventContainerPath = By.xpath(".//a[@class='dod_new-event']");
 
         WebElement upcomingEventsBlocks = driver.findElement(upcomingEventsBlocksPath);
         List<WebElement> eventContainers = upcomingEventsBlocks.findElements(eventContainerPath);

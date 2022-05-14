@@ -16,7 +16,7 @@ public class CoursePage extends AbstractPage {
 
     public void open() {
         //'Java QA Engineer. Basic'
-        TestCoursesNames configCourseName = serverConfig.testCourseName1();
+        TestCoursesNames configCourseName = serverConfig.testCourseName();
         String findCoursesBlock = String.format("//div[contains(text(),'%s')]", configCourseName.getTranslate());
 
         WebElement currentCoursesBlock = driver.findElement(By.xpath(findCoursesBlock));
@@ -28,7 +28,7 @@ public class CoursePage extends AbstractPage {
 
     public void checkOpenedCoursesName() {
         //В карточке указана информация о курсе: Название, Описание, Длительность обучения
-        TestCoursesNames configCourseName = serverConfig.testCourseName1();
+        TestCoursesNames configCourseName = serverConfig.testCourseName();
         String openedCoursesPageHeader = String.format("//div[@class='course-header2__title'][contains(text(), '%s')]", configCourseName.getTranslate());
         String openedCurrentCoursesPageHeader = driver.findElement(By.xpath(openedCoursesPageHeader)).getText();
         Assert.assertEquals(configCourseName.getTranslate(), openedCurrentCoursesPageHeader);
@@ -37,7 +37,7 @@ public class CoursePage extends AbstractPage {
 
     public void checkOpenedCoursesLength() {
         //В карточке указана информация о курсе: Название, Описание, Длительность обучения
-        CoursesLength configCourseLength = serverConfig.testCourseLength1();
+        CoursesLength configCourseLength = serverConfig.testCourseLength();
         String openedCoursesPageLength = String.format("//p[@class='course-header2-bottom__item-text'][contains(text(),'%s')]", configCourseLength.getDuration());
         String openedCurrentCoursesPageLength= driver.findElement(By.xpath(openedCoursesPageLength)).getText();
         Assert.assertEquals(configCourseLength.getDuration() +" "+ configCourseLength.getLengthMonth(), openedCurrentCoursesPageLength);
@@ -48,7 +48,7 @@ public class CoursePage extends AbstractPage {
 
     public void checkOpenedCoursesDescr() {
         //В карточке указана информация о курсе: Название, Описание, Длительность обучения
-        CoursesDescr configCourseDescr = serverConfig.testCourseDescr1();
+        CoursesDescr configCourseDescr = serverConfig.testCourseDescr();
         String openedCoursesPageDescr= String.format("//h1[@class='course-header2__subtitle'][contains(text(),'%s')]", configCourseDescr.getDescription());
         String openedCurrentCoursesPageDescr = driver.findElement(By.xpath(openedCoursesPageDescr)).getText();
         Assert.assertEquals(configCourseDescr.getDescription(), openedCurrentCoursesPageDescr);
