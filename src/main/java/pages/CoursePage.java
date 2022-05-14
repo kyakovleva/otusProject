@@ -15,7 +15,6 @@ public class CoursePage extends AbstractPage {
     }
 
     public void open() {
-        //'Java QA Engineer. Basic'
         TestCoursesNames configCourseName = serverConfig.testCourseName();
         String findCoursesBlock = String.format("//div[contains(text(),'%s')]", configCourseName.getTranslate());
 

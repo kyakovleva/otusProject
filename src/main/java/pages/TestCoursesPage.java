@@ -30,9 +30,12 @@ public class TestCoursesPage extends AbstractPage {
         WebElement testCoursesButtonElement = driver.findElement(By.xpath(testCoursesButton));
         actions.moveToElement(findCoursesButtonElement).build().perform();
         testCoursesButtonElement.click();
-        String currentHeader = testHeader.getText();
-        Assert.assertEquals("Страница открыта некорректно", configCoursesListButton.getTranslate(), currentHeader);
-        logger.info("Открыта страница курсов Тестирование");
+        String currentHeader = String.format("//h1[contains(text(),'%s')]", configCoursesListButton.getTranslate());
+        WebElement currentHeaderElement = driver.findElement(By.xpath(currentHeader));
+        String currentHeaderText = currentHeaderElement.getText();
+
+        Assert.assertEquals("Страница открыта некорректно", configCoursesListButton.getTranslate(), currentHeaderText);
+        logger.info("Открыта страница курсов =" + configCoursesButton.getTranslate());
 
     }
 
