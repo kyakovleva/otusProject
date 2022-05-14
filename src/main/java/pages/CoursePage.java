@@ -15,7 +15,7 @@ public class CoursePage extends AbstractPage {
     public void open() {
         //'Java QA Engineer. Basic'
         CoursesNames configCourseName = serverConfig.testCourseName1();
-        String findCoursesBlock = String.format("//div[contains(text(),'%s')]", serverConfig.testCourseName1());
+        String findCoursesBlock = String.format("//div[contains(text(),'%s')]", configCourseName.getTranslate());
 //        String openedCoursesPageHeader = String.format("//div[@class='course-header2__title'][contains(text(), '%s')]",serverConfig.testCourseName1());
 
         WebElement currentCoursesBlock = driver.findElement(By.xpath(findCoursesBlock));
