@@ -68,6 +68,6 @@ public class MainTest {
         EventsPage eventsPage = new EventsPage(driver);
         eventsPage.open();
         eventsPage.sortUpcomingEventsDOD();
-//        eventsPage.sortUpcomingEventsDOD();
+        eventsPage.checkSortUpcomingEventsDOD();
     }
 }

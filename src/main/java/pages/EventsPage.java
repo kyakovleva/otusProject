@@ -60,7 +60,7 @@ public class EventsPage extends AbstractPage {
         logger.info("Открыта страница предстоящих мероприятий");
     }
 
-    public boolean checkBlocksUpcomingEvents() { //Возможно тут тоже проблемы, не сммогла потестить
+    public boolean checkBlocksUpcomingEvents() {
 //На странице отображаются карточки предстоящих мероприятий.
         try {
             driver.findElement(By.tagName("a"));
@@ -72,19 +72,26 @@ public class EventsPage extends AbstractPage {
 
     public void checkDatesOfUpcomingEvents() {
 //        Даты проведения мероприятий больше или равны текущей дате
+        final By eventDateContainer = By.xpath("//span[@class='dod_new-event__date-text']");
+        final By eventDateTimeContainerCommon = By.xpath("//span[@class='dod_new-event__time-item']");
+        final By eventDateTimeContainerContainsDate = By.xpath("//span[contains(@class,'dod_new-event__calendar-icon')]");
         final By upcomingEventsBlocksElement = By.xpath("//div[contains(@class,'dod_new-events__list')][contains(@class,'js-dod_new_events')]");
-        final By eventDateTimeContainer = By.xpath("//span[@class='dod_new-event__date-text']");
         Date dateNow = new Date();
         DateFormat df = new SimpleDateFormat("dd MMMMMMMM");
         String currentDate = df.format(dateNow);
         WebElement upcomingEventsBlocks = driver.findElement(upcomingEventsBlocksElement);
-        List<WebElement> futureEventsDates = upcomingEventsBlocks.findElements(eventDateTimeContainer);
-//        for () {}// нужна помощь^^
-//        я хотела объединить по парам каждые следующие значения,
-//        т.е. дергать из List значения по порядяку 0+1, 2+3, 4+5, записывать в одно значение String.format
-//        дергать текст и сравнивать с текущей датой(currentDate)
-//                Проблема реализации дат в блоках в отусе в том, что xpathы у даты и времени одинаковые
-//                и отличаются только самими значениями внутри элемента, другой реализации метода я не придумала(
+        List<WebElement> futureEventsDates = upcomingEventsBlocks.findElements(eventDateContainer);
+//        for (WebElement futureEventsDates : futureEventsDates) {
+//            WebElement eventDateTimeContainerCommonElement = driver.findElement(eventDateTimeContainerCommon);
+//            if (WebElement
+//            eventDateTimeContainerContainsDateElement = driver.findElement(eventDateTimeContainerContainsDate));
+//            {
+//                String eventDateTimeContainerCommonElementTime = eventDateTimeContainerCommonElement.getText();
+//                if (eventDateTimeContainerCommonElementTime >= currentDate) {
+//
+//                }
+//            }
+
         logger.info("Даты мероприятий больше текущей даты");
     }
 
