@@ -1,5 +1,7 @@
 package pages;
 
+import enums.CoursesDescr;
+import enums.CoursesLength;
 import enums.CoursesNames;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -29,25 +31,30 @@ public class CoursePage extends AbstractPage {
 
     public void checkOpenedCoursesName() {
         //В карточке указана информация о курсе: Название, Описание, Длительность обучения
-
-        String openedCoursesPageHeader = String.format("//div[@class='course-header2__title'][contains(text(), '%s')]", serverConfig.testCourseName1());
+        CoursesNames configCourseName = serverConfig.testCourseName1();
+        String openedCoursesPageHeader = String.format("//div[@class='course-header2__title'][contains(text(), '%s')]", configCourseName.getTranslate());
         String openedCurrentCoursesPageHeader = driver.findElement(By.xpath(openedCoursesPageHeader)).getText();
-        Assert.assertEquals(serverConfig.testCourseName1(), openedCurrentCoursesPageHeader);
+        Assert.assertEquals(configCourseName.getTranslate(), openedCurrentCoursesPageHeader);
         logger.info("На странице отображается корректное название курсов");
     }
 
     public void checkOpenedCoursesLength() {
         //В карточке указана информация о курсе: Название, Описание, Длительность обучения
-        String openedCoursesPageLength = String.format("//p[@class='course-header2-bottom__item-text'][contains(text(),'%s')]", serverConfig.testCourseLength1());
+        CoursesLength configCourseLength = serverConfig.testCourseLength1();
+        String openedCoursesPageLength = String.format("//p[@class='course-header2-bottom__item-text'][contains(text(),'%s')]", configCourseLength.getDuration());
         String openedCurrentCoursesPageLength= driver.findElement(By.xpath(openedCoursesPageLength)).getText();
-        Assert.assertEquals(serverConfig.testCourseLength1(), openedCurrentCoursesPageLength);
+        Assert.assertEquals(configCourseLength.getDuration() +" "+ configCourseLength.getLengthMonth(), openedCurrentCoursesPageLength);
         logger.info("На странице отображается корректная продолжительность курсов");
     }
+
+
+
     public void checkOpenedCoursesDescr() {
         //В карточке указана информация о курсе: Название, Описание, Длительность обучения
-        String openedCoursesPageDescr= String.format("//h1[@class='course-header2__subtitle'][contains(text(),'%s')]", serverConfig.testCourseDescr1());
+        CoursesDescr configCourseDescr = serverConfig.testCourseDescr1();
+        String openedCoursesPageDescr= String.format("//h1[@class='course-header2__subtitle'][contains(text(),'%s')]", configCourseDescr.getDescription());
         String openedCurrentCoursesPageDescr = driver.findElement(By.xpath(openedCoursesPageDescr)).getText();
-        Assert.assertEquals(serverConfig.testCourseDescr1(), openedCurrentCoursesPageDescr);
+        Assert.assertEquals(configCourseDescr.getDescription(), openedCurrentCoursesPageDescr);
         logger.info("На странице отображается корректное описание курсов");
     }
 

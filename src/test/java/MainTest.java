@@ -37,7 +37,7 @@ public class MainTest {
     public void testCourses() {
         testCountCourses();
         testChecksOpenedCourse();
-//        testUpcomingEvents();
+        testUpcomingEvents();
 //        testSortDODEventsOpen();
     }
 
