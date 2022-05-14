@@ -1,5 +1,7 @@
 package pages;
 
+import enums.CoursesMenu;
+import enums.MainHeader;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,11 +12,6 @@ import org.openqa.selenium.support.FindBy;
 import java.util.List;
 
 public class TestCoursesPage extends AbstractPage {
-    @FindBy(xpath = "//p[contains(text(),'Курсы')]")
-    private WebElement coursesMenu;
-
-    @FindBy(xpath = "//a[contains(@class,'header2-menu__dropdown-link')][@title='Тестирование']")
-    private WebElement testCoursesButton;
 
     @FindBy(xpath = "//h1[contains(text(),'Тестирование')]")
     private WebElement testHeader;
@@ -25,12 +22,16 @@ public class TestCoursesPage extends AbstractPage {
 
     public void open() {
         Actions actions = new Actions(driver);
-        actions.moveToElement(coursesMenu).build().perform();
-        testCoursesButton.click();
+        MainHeader configCoursesButton = serverConfig.coursesHeader();
+        CoursesMenu configCoursesListButton = serverConfig.coursesToTest();
+        String findCoursesButton = String.format("//p[contains(text(),'%s')]", configCoursesButton.getTranslate());
+        String testCoursesButton = String.format("//a[contains(@class,'header2-menu__dropdown-link')][@title='%s']", configCoursesListButton.getTranslate());
+        WebElement findCoursesButtonElement = driver.findElement(By.xpath(findCoursesButton));
+        WebElement testCoursesButtonElement = driver.findElement(By.xpath(testCoursesButton));
+        actions.moveToElement(findCoursesButtonElement).build().perform();
+        testCoursesButtonElement.click();
         String currentHeader = testHeader.getText();
-//        String configHeader = String.format("//h1[contains(text(),'%s')]", ServerConfig.courses());
-//        Assert.assertEquals("Страница открыта некорректно", serverConfig.courses(), currentHeader); //почему то не работает через серверконфиг проверка
-        Assert.assertEquals("Страница открыта некорректно", "Тестирование", currentHeader);
+        Assert.assertEquals("Страница открыта некорректно", configCoursesListButton.getTranslate(), currentHeader);
         logger.info("Открыта страница курсов Тестирование");
 
     }

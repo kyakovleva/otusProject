@@ -18,15 +18,12 @@ public class CoursePage extends AbstractPage {
         //'Java QA Engineer. Basic'
         TestCoursesNames configCourseName = serverConfig.testCourseName1();
         String findCoursesBlock = String.format("//div[contains(text(),'%s')]", configCourseName.getTranslate());
-//        String openedCoursesPageHeader = String.format("//div[@class='course-header2__title'][contains(text(), '%s')]",serverConfig.testCourseName1());
 
         WebElement currentCoursesBlock = driver.findElement(By.xpath(findCoursesBlock));
         js.moveToElement(currentCoursesBlock);
         js.clickOnElement(currentCoursesBlock);
-//        String openedCurrentCoursesPageHeader = driver.findElement(By.xpath(openedCoursesPageHeader)).getText();
-//
-//        Assert.assertEquals(serverConfig.testCourseName1(),openedCurrentCoursesPageHeader);
-        logger.info("Открыта страница курсов");
+
+        logger.info("Открыта страница курсов" + configCourseName.getTranslate());
     }
 
     public void checkOpenedCoursesName() {
@@ -35,7 +32,7 @@ public class CoursePage extends AbstractPage {
         String openedCoursesPageHeader = String.format("//div[@class='course-header2__title'][contains(text(), '%s')]", configCourseName.getTranslate());
         String openedCurrentCoursesPageHeader = driver.findElement(By.xpath(openedCoursesPageHeader)).getText();
         Assert.assertEquals(configCourseName.getTranslate(), openedCurrentCoursesPageHeader);
-        logger.info("На странице отображается корректное название курсов");
+        logger.info("На странице отображается корректное название курсов" + configCourseName.getTranslate());
     }
 
     public void checkOpenedCoursesLength() {
@@ -44,7 +41,7 @@ public class CoursePage extends AbstractPage {
         String openedCoursesPageLength = String.format("//p[@class='course-header2-bottom__item-text'][contains(text(),'%s')]", configCourseLength.getDuration());
         String openedCurrentCoursesPageLength= driver.findElement(By.xpath(openedCoursesPageLength)).getText();
         Assert.assertEquals(configCourseLength.getDuration() +" "+ configCourseLength.getLengthMonth(), openedCurrentCoursesPageLength);
-        logger.info("На странице отображается корректная продолжительность курсов");
+        logger.info("На странице отображается корректная продолжительность курсов = " +configCourseLength.getDuration() +" "+ configCourseLength.getLengthMonth());
     }
 
 

@@ -5,7 +5,8 @@ public enum EventsNames {
     EVENTSCALENDAR("Календарь мероприятий"),
     COURSESSTARTSCALENDAR("Календарь запуска курсов"),
     INSTENSIVES("Интенсивы"),
-    DOD("ДОД"),
+    DODLONG("День открытых дверей"),
+    DODSHORT("ДОД"),
     OPENVEBINAR("Открытый вебинар"),
     ONLINEMEETUP("Онлайн митап");
 

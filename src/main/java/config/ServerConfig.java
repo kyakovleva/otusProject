@@ -6,8 +6,17 @@ import org.aeonbits.owner.Config;
 @Config.Sources("classpath:config.properties")
 public interface ServerConfig extends Config {
 
-    @Key("courses")
-    String courses();
+    @Key("coursesHeader")
+    MainHeader coursesHeader();
+
+    @Key("coursesToTest")
+    CoursesMenu coursesToTest();
+
+    @Key("eventSortingTypeShort")
+    EventsNames eventSortingTypeShort();
+
+    @Key("eventSortingTypeLong")
+    EventsNames eventSortingTypeLong();
 
     @Key("testCourseName1")
     TestCoursesNames testCourseName1();
@@ -21,8 +30,8 @@ public interface ServerConfig extends Config {
     @Key("testEventsName2")
     EventsNames testEventsName2();
 
-    @Key("testEventsName1")
-    MainHeader testEventsName1();
+    @Key("eventsHeader")
+    MainHeader eventsHeader();
 
     @Key("testEventsName3")
     EventsNames testEventsName3();

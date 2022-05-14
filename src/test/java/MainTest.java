@@ -28,7 +28,7 @@ public class MainTest {
         driver = DriverManager.initDriver(webDriverName, List.of(System.getProperty("browser.mode")));
     }
 
-    //    @After
+        @After
     public void end() {
         DriverManager.end(driver);
     }
@@ -41,7 +41,7 @@ public class MainTest {
         testSortDODEventsOpen();
     }
 
-    public void testCountCourses() {
+    private void testCountCourses() {
         MainPage mainPage = new MainPage(driver);
         TestCoursesPage testCoursesPage = new TestCoursesPage(driver);
         CoursePage coursePage = new CoursePage(driver);
@@ -51,21 +51,21 @@ public class MainTest {
         coursePage.open();
     }
 
-    public void testChecksOpenedCourse() {
+    private void testChecksOpenedCourse() {
         CoursePage coursePage = new CoursePage(driver);
         coursePage.checkOpenedCoursesName();
         coursePage.checkOpenedCoursesLength();
         coursePage.checkOpenedCoursesDescr();
     }
 
-    public void testUpcomingEvents() {
+    private void testUpcomingEvents() {
         EventsPage eventsPage = new EventsPage(driver);
         eventsPage.open();
         eventsPage.checkBlocksUpcomingEvents();
         eventsPage.checkDatesOfUpcomingEvents();
     }
 
-    public void testSortDODEventsOpen() {
+    private void testSortDODEventsOpen() {
         EventsPage eventsPage = new EventsPage(driver);
         eventsPage.sortUpcomingEventsDOD();
         eventsPage.checkSortUpcomingEventsDOD();
