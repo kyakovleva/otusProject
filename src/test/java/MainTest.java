@@ -62,11 +62,11 @@ public class MainTest {
         EventsPage eventsPage = new EventsPage(driver);
         eventsPage.open();
         eventsPage.checkBlocksUpcomingEvents();
+        eventsPage.checkDatesOfUpcomingEvents();
     }
 
     public void testSortDODEventsOpen() {
         EventsPage eventsPage = new EventsPage(driver);
-        eventsPage.open();
         eventsPage.sortUpcomingEventsDOD();
         eventsPage.checkSortUpcomingEventsDOD();
     }

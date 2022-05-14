@@ -1,8 +1,9 @@
 package pages;
 
-import enums.CoursesDescr;
 import enums.EventsNames;
 import enums.MainHeader;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -11,17 +12,21 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
+
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoField;
 import java.util.List;
+import java.util.Locale;
+
 
 public class EventsPage extends AbstractPage {
+
+    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy").withLocale(new Locale("ru"));
+
     @FindBy(xpath = "//p[contains(text(),'События')]")
     private WebElement eventsMenu;
-
-//    @FindBy(xpath = "//a[contains(@class,'header2-menu__dropdown-link')][@title='Календарь мероприятий']")
-//    private WebElement eventsCalendarButton;
 
     @FindBy(xpath = "//div[contains(@class,'dod_new-events__list')][contains(@class,'js-dod_new_events')]")
     private WebElement upcomingEventsBlocksElement;
@@ -68,30 +73,48 @@ public class EventsPage extends AbstractPage {
             return false;
         }
         return true;
+//        logger.info("На странице отображаются карточки предстоящих мероприятий");
     }
+
 
     public void checkDatesOfUpcomingEvents() {
 //        Даты проведения мероприятий больше или равны текущей дате
-        final By eventDateContainer = By.xpath("//span[@class='dod_new-event__date-text']");
-        final By eventDateTimeContainerCommon = By.xpath("//span[@class='dod_new-event__time-item']");
-        final By eventDateTimeContainerContainsDate = By.xpath("//span[contains(@class,'dod_new-event__calendar-icon')]");
-        final By upcomingEventsBlocksElement = By.xpath("//div[contains(@class,'dod_new-events__list')][contains(@class,'js-dod_new_events')]");
-        Date dateNow = new Date();
-        DateFormat df = new SimpleDateFormat("dd MMMMMMMM");
-        String currentDate = df.format(dateNow);
-        WebElement upcomingEventsBlocks = driver.findElement(upcomingEventsBlocksElement);
-        List<WebElement> futureEventsDates = upcomingEventsBlocks.findElements(eventDateContainer);
-//        for (WebElement futureEventsDates : futureEventsDates) {
-//            WebElement eventDateTimeContainerCommonElement = driver.findElement(eventDateTimeContainerCommon);
-//            if (WebElement
-//            eventDateTimeContainerContainsDateElement = driver.findElement(eventDateTimeContainerContainsDate));
-//            {
-//                String eventDateTimeContainerCommonElementTime = eventDateTimeContainerCommonElement.getText();
-//                if (eventDateTimeContainerCommonElementTime >= currentDate) {
-//
-//                }
-//            }
+        By upcomingEventsBlocksPath = By.xpath("//div[contains(@class,'dod_new-events__list')][contains(@class,'js-dod_new_events')]");
+        By eventContainerPath = By.xpath(".//a[@class='dod_new-event']");
+        By eventNamePath = By.xpath(".//div[contains(@class,'js-dod-new-event-title')]");
+        By eventDateTimeContainerPath = By.xpath(".//div[contains(@class,'dod_new-event__time')]");
+        By eventDateTimeItemPath = By.xpath(".//span[contains(@class,'dod_new-event__time-item')]");
+        By dateIconPath = By.xpath(".//span[contains(@class, 'dod_new-event__calendar-icon')]");
+        By dateTextPath = By.xpath(".//span[contains(@class,'dod_new-event__date-text')]");
 
+        LocalDate currentDate = LocalDate.now();
+        int currentYear = currentDate.get(ChronoField.YEAR);
+
+        WebElement upcomingEventsBlocks = driver.findElement(upcomingEventsBlocksPath);
+        List<WebElement> eventContainers = upcomingEventsBlocks.findElements(eventContainerPath);
+
+        eventContainers.forEach(event -> {
+            WebElement eventDateTimeContainer = event.findElement(eventDateTimeContainerPath);
+            WebElement eventName = event.findElement(eventNamePath);
+            LocalDate eventDate = null;
+            for (WebElement timeElement : eventDateTimeContainer.findElements(eventDateTimeItemPath)) {
+                if (CollectionUtils.isNotEmpty(timeElement.findElements(dateIconPath))) {
+                    String dateText = timeElement.findElement(dateTextPath).getText();
+                    if (StringUtils.isNotEmpty(dateText)) {
+                        eventDate = LocalDate.parse(dateText.toLowerCase() + " " + currentYear, dateFormatter);
+                        break;
+                    }
+                }
+            }
+            if (eventDate == null) {
+                logger.error("У курса с наименованием = \"{}\" не найдена дата", eventName.getText());
+            } else if (eventDate.isAfter(currentDate) || eventDate.isEqual(currentDate)) {
+                logger.info("У курса с наименованием = \"{}\" дата проведения корректна - {}", eventName.getText(), eventDate);
+            } else {
+                logger.error("У курса с наименованием = \"{}\" дата проведения некорректна - {}", eventName.getText(), eventDate);
+            }
+
+        });
         logger.info("Даты мероприятий больше текущей даты");
     }
 
@@ -116,6 +139,6 @@ public class EventsPage extends AbstractPage {
         //1.Скопировать проверку по датам?
         String upcomingDODEventHeaderText = upcomingDODEventHeader.getText();
         Assert.assertEquals("На странице отображаются не ДОД мероприятия", upcomingDODEventHeaderText, "День открытых дверей");
-
+        logger.info("На странице отображаются карточки предстоящих мероприятий. На каждой карточке в типе указанно \"День открытых дверей\"");
     }
 }
