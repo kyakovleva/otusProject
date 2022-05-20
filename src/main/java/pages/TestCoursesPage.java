@@ -39,6 +39,7 @@ public class TestCoursesPage extends AbstractPage {
         WebElement coursesBlocks = driver.findElement(By.className("lessons"));
         List<WebElement> coursesBlocksList = coursesBlocks.findElements(By.tagName("a"));
         int countCoursesBlocks = coursesBlocksList.size();
+
         Assert.assertEquals("Количество курсов на странице не равно 11", 11, countCoursesBlocks);
         logger.info("Количество курсов на странице = 11");
     }

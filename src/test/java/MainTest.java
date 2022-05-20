@@ -38,10 +38,10 @@ public class MainTest {
         testCountCourses();
         testChecksOpenedCourse();
         testUpcomingEvents();
-        testSortDODEventsOpen();
+        //testSortDODEventsOpen();
     }
 
-    private void testCountCourses() {
+    public void testCountCourses() {
         MainPage mainPage = new MainPage(driver);
         TestCoursesPage testCoursesPage = new TestCoursesPage(driver);
         CoursePage coursePage = new CoursePage(driver);
@@ -51,21 +51,21 @@ public class MainTest {
         coursePage.open();
     }
 
-    private void testChecksOpenedCourse() {
+    public void testChecksOpenedCourse() {
         CoursePage coursePage = new CoursePage(driver);
         coursePage.checkOpenedCoursesName();
         coursePage.checkOpenedCoursesLength();
         coursePage.checkOpenedCoursesDescr();
     }
 
-    private void testUpcomingEvents() {
+    public void testUpcomingEvents() {
         EventsPage eventsPage = new EventsPage(driver);
         eventsPage.open();
         eventsPage.checkBlocksUpcomingEvents();
         eventsPage.checkDatesOfUpcomingEvents();
     }
 
-    private void testSortDODEventsOpen() {
+    public void testSortDODEventsOpen() {
         EventsPage eventsPage = new EventsPage(driver);
         eventsPage.sortUpcomingEventsDOD();
         eventsPage.checkSortUpcomingEventsDOD();

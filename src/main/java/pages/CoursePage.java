@@ -31,6 +31,7 @@ public class CoursePage extends AbstractPage {
         String openedCoursesPageHeader = String.format("//div[@class='course-header2__title'][contains(text(), '%s')]", configCourseName.getTranslate());
         String openedCurrentCoursesPageHeader = driver.findElement(By.xpath(openedCoursesPageHeader)).getText();
         Assert.assertEquals(configCourseName.getTranslate(), openedCurrentCoursesPageHeader);
+
         logger.info("На странице отображается корректное название курсов" + configCourseName.getTranslate());
     }
 
@@ -40,6 +41,7 @@ public class CoursePage extends AbstractPage {
         String openedCoursesPageLength = String.format("//p[@class='course-header2-bottom__item-text'][contains(text(),'%s')]", configCourseLength.getDuration());
         String openedCurrentCoursesPageLength= driver.findElement(By.xpath(openedCoursesPageLength)).getText();
         Assert.assertEquals(configCourseLength.getDuration() +" "+ configCourseLength.getLengthMonth(), openedCurrentCoursesPageLength);
+
         logger.info("На странице отображается корректная продолжительность курсов = " +configCourseLength.getDuration() +" "+ configCourseLength.getLengthMonth());
     }
 
@@ -51,6 +53,7 @@ public class CoursePage extends AbstractPage {
         String openedCoursesPageDescr= String.format("//h1[@class='course-header2__subtitle'][contains(text(),'%s')]", configCourseDescr.getDescription());
         String openedCurrentCoursesPageDescr = driver.findElement(By.xpath(openedCoursesPageDescr)).getText();
         Assert.assertEquals(configCourseDescr.getDescription(), openedCurrentCoursesPageDescr);
+
         logger.info("На странице отображается корректное описание курсов");
     }
 

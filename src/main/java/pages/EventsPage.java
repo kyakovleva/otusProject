@@ -21,7 +21,7 @@ import java.util.Locale;
 
 public class EventsPage extends AbstractPage {
 
-    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy").withLocale(new Locale("ru"));
+    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy").withLocale(new Locale("ru"));
 
     public EventsPage(WebDriver driver) {
         super(driver);
@@ -105,11 +105,13 @@ public class EventsPage extends AbstractPage {
         final By upcomingEventsSort = By.xpath("//span[@class='dod_new-events-dropdown__input-selected']");
         String findEventType = String.format("//a[contains(text(),'%s')]", configEventTypeName.getTranslate());
         WebElement currentCoursesBlock = driver.findElement(upcomingEventsSort);
+
         js.moveToElement(currentCoursesBlock);
         js.clickOnElement(currentCoursesBlock);
         WebElement findEventTypeElement = driver.findElement(By.xpath(findEventType));
         js.moveToElement(findEventTypeElement);
         js.clickOnElement(findEventTypeElement);
+
         logger.info("Мероприятия отсортированы по типу = "+configEventTypeName.getTranslate());
     }
 
